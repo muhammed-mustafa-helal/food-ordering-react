@@ -8,9 +8,11 @@ const API_URL = 'https://food-ordering-app-e07eb-default-rtdb.europe-west1.fireb
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMeals = async () => {
+      setIsLoading(true);
       const response = await fetch(API_URL);
       const responseData = await response.json();
 
@@ -24,10 +26,17 @@ const AvailableMeals = () => {
         })
       }
       setMeals(LoadedMeals);
+      setIsLoading(false)
     };
     fetchMeals();
   }, []);
 
+
+  if (isLoading) {
+    return <section className={classes.MealsLoading}>
+      <p>Loading ...</p>
+    </section>
+  }
 
   const mealsList = meals.map((meal) => (
     <MealItem
