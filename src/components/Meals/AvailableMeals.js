@@ -4,6 +4,7 @@ import Card from '../UI/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './AvailableMeals.module.css';
 
+const FIREBASE_URL = 'https://food-ordering-app-e07eb-default-rtdb.europe-west1.firebasedatabase.app/meals.json';
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,7 @@ const AvailableMeals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/meals.json'
+        FIREBASE_URL
       );
 
       if (!response.ok) {
